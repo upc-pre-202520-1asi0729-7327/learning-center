@@ -1,6 +1,9 @@
 {
   "name": "learning-center",
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "ACME Learning Center Application",
+  "author": "Open-Source Applications Development Team",
+  "license": "MIT",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
