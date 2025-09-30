@@ -75,6 +75,55 @@ export class LearningStore {
     });
   }
 
+  getCourseById(id: number | null | undefined): Signal<Course | undefined> {
+    return computed(() => id ? this.courses().find(c => c.id === id) : undefined);
+  }
+
+  addCourse(course: Course): void {
+    this.loadingSignal.set(true);
+    this.errorSignal.set(null);
+    this.learningApi.createCourse(course).pipe(retry(2)).subscribe({
+      next: createdCourse => {
+        this.coursesSignal.update(courses => [...courses, createdCourse]);
+        this.loadingSignal.set(false);
+      },
+      error: err => {
+        this.errorSignal.set(this.formatError(err, 'Failed to create course'));
+        this.loadingSignal.set(false);
+      }
+    });
+  }
+
+  updateCourse(updatedCourse: Course): void {
+    this.loadingSignal.set(true);
+    this.errorSignal.set(null);
+    this.learningApi.updateCourse(updatedCourse).pipe(retry(2)).subscribe({
+      next: course => {
+        this.coursesSignal.update(courses => courses.map(c => c.id === course.id ? course : c));
+        this.loadingSignal.set(false);
+      },
+      error: err => {
+        this.errorSignal.set(this.formatError(err, 'Failed to update course'));
+        this.loadingSignal.set(false);
+      }
+    });
+  }
+
+  deleteCourse(id: number): void {
+    this.loadingSignal.set(true);
+    this.errorSignal.set(null);
+    this.learningApi.deleteCourse(id).pipe(retry(2)).subscribe({
+      next: () => {
+        this.coursesSignal.update(courses => courses.filter(c => c.id !== id));
+        this.loadingSignal.set(false);
+      },
+      error: err => {
+        this.errorSignal.set(this.formatError(err, 'Failed to delete course'));
+        this.loadingSignal.set(false);
+      }
+    });
+  }
+
   private loadCategories(): void {
     this.loadingSignal.set(true);
     this.errorSignal.set(null);
