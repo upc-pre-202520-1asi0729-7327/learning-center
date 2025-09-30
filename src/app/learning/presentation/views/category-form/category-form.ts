@@ -1,4 +1,8 @@
-import { Component } from '@angular/core';
+import {Component, inject} from '@angular/core';
+import {FormBuilder, FormControl, Validators} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
+import {LearningStore} from '../../../application/learning.store';
+import {Category} from '../../../domain/model/category.entity';
 
 @Component({
   selector: 'app-category-form',
@@ -7,5 +11,37 @@ import { Component } from '@angular/core';
   styleUrl: './category-form.css'
 })
 export class CategoryForm {
+  private fb = inject(FormBuilder);
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+  private store = inject(LearningStore);
 
+  form = this.fb.group({
+    name: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] })
+  });
+
+  isEdit = false;
+  categoryId: number | null = null;
+
+  constructor() {
+    this.route.params.subscribe(params  => {
+      this.categoryId = params['id'] ? +params['id'] : null;
+      this.isEdit = !!this.categoryId;
+      if (this.isEdit) {
+        const category = this.store.getCategoryById(this.categoryId);
+        if (category) this.form.patchValue({name: category.name});
+      }
+    });
+  }
+
+  submit() {
+    if (this.form.invalid) return;
+    const category: Category = new Category({
+      id: this.categoryId ?? 0,
+      name: this.form.value.name!
+    });
+
+    if (this.isEdit) this.store.updateCategory(category); else this.store.addCategory(category);
+    this.router.navigate(['learning/categories']).then();
+  }
 }
