@@ -25,7 +25,8 @@
     {
       "id": 1,
       "title": "Java for Beginners",
-      "description": "An introductory course to Java programming language."
+      "description": "An introductory course to Java programming language.",
+      "categoryId": 1
     },
     {
       "id": 2,
@@ -92,8 +93,12 @@
       "title": "Microservices with Spring Boot",
       "description": "Build microservices architecture using Spring Boot.",
       "categoryId": 2
+    },
+    {
+      "id": 13,
+      "title": "Java Advanced",
+      "description": "The best about Java",
+      "categoryId": 1
     }
-
   ]
 }
-
