@@ -1,7 +1,9 @@
 {
   "option": {
     "home": "Inicio",
-    "about": "Acerca de"
+    "about": "Acerca de",
+    "categories": "Categorías",
+    "courses": "Cursos"
   },
   "about": {
     "title": "Acerca de Nosotros",
