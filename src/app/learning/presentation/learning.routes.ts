@@ -5,7 +5,7 @@ const categoryForm = () => import('./views/category-form/category-form').then(m 
 const courseList = () => import('./views/course-list/course-list').then(m => m.CourseList);
 const courseForm = () => import('./views/course-form/course-form').then(m => m.CourseForm);
 
-const learningRoutes: Routes = [
+export const learningRoutes: Routes = [
   { path: 'categories',           loadComponent: categoryList},
   { path: 'categories/new',       loadComponent: categoryForm},
   { path: 'categories/:id/edit',  loadComponent: categoryForm},
@@ -14,4 +14,3 @@ const learningRoutes: Routes = [
   { path: 'courses/:id/edit',     loadComponent: courseForm}
 ];
 
-export default learningRoutes;
