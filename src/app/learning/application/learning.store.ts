@@ -146,12 +146,23 @@ export class LearningStore {
       next: courses => {
         this.coursesSignal.set(courses);
         this.loadingSignal.set(false);
+        this.assignCategoriesToCourses();
       },
       error: err => {
         this.errorSignal.set(this.formatError(err, 'Failed to load courses'));
         this.loadingSignal.set(false);
       }
     });
+  }
+
+  private assignCategoriesToCourses(): void {
+    this.coursesSignal.update(courses => courses.map(course => this.assignCategoryToCourse(course)));
+  }
+
+  private assignCategoryToCourse(course: Course): Course {
+    const categoryId = course.categoryId ?? 0;
+    course.category = categoryId ? this.getCategoryById(categoryId)() ?? null : null;
+    return course;
   }
 
   private formatError(error: any,  fallback: string): string {
