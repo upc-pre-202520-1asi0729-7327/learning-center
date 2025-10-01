@@ -1,7 +1,6 @@
 import {BaseAssembler} from '../../shared/infrastructure/base-assembler';
 import {CategoriesResponse, CategoryResource} from './categories-response';
 import {Category} from '../domain/model/category.entity';
-import {resource} from '@angular/core';
 
 export class CategoryAssembler implements BaseAssembler<Category, CategoryResource, CategoriesResponse> {
   toEntitiesFromResponse(response: CategoriesResponse): Category[] {

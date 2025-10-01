@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+import {Routes} from '@angular/router';
 // Lazy-loaded components
 const categoryList = () => import('./views/category-list/category-list').then(m => m.CategoryList);
 const categoryForm = () => import('./views/category-form/category-form').then(m => m.CategoryForm);

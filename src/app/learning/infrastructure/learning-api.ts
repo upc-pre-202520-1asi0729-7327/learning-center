@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {BaseApi} from '../../shared/infrastructure/base-api';
 import {CoursesApiEndpoint} from './courses-api-endpoint';
 import {CategoriesApiEndpoint} from './categories-api-endpoint';
