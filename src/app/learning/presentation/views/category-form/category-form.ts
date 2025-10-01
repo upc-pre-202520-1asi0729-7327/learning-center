@@ -1,12 +1,22 @@
 import {Component, inject} from '@angular/core';
-import {FormBuilder, FormControl, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, ReactiveFormsModule, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {LearningStore} from '../../../application/learning.store';
 import {Category} from '../../../domain/model/category.entity';
+import {MatError, MatFormField, MatLabel} from '@angular/material/form-field';
+import {MatButton} from '@angular/material/button';
+import {MatInput} from '@angular/material/input';
 
 @Component({
   selector: 'app-category-form',
-  imports: [],
+  imports: [
+    ReactiveFormsModule,
+    MatFormField,
+    MatLabel,
+    MatError,
+    MatButton,
+    MatInput
+  ],
   templateUrl: './category-form.html',
   styleUrl: './category-form.css'
 })

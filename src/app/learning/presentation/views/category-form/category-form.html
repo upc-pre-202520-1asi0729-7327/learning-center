@@ -1,1 +1,14 @@
-<p>category-form works!</p>
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <mat-form-field>
+    <mat-label>Name</mat-label>
+    <input matInput formControlName="name" required>
+    @if (form.get('name')!.touched && form.get('name')!.hasError('required')) {
+      <mat-error>Name is required</mat-error>
+    }
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+    {{ isEdit ? 'Update' : 'Add' }} Category
+  </button>
+</form>
+
