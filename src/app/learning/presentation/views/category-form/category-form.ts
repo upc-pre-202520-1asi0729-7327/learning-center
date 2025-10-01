@@ -38,7 +38,8 @@ export class CategoryForm {
       this.categoryId = params['id'] ? +params['id'] : null;
       this.isEdit = !!this.categoryId;
       if (this.isEdit) {
-        const category = this.store.getCategoryById(this.categoryId);
+        const category = this.store.getCategoryById(this.categoryId)();
+        console.log(category);
         if (category) this.form.patchValue({name: category.name});
       }
     });
