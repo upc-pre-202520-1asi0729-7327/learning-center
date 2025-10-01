@@ -84,6 +84,7 @@ export class LearningStore {
     this.errorSignal.set(null);
     this.learningApi.createCourse(course).pipe(retry(2)).subscribe({
       next: createdCourse => {
+        createdCourse = this.assignCategoryToCourse(createdCourse);
         this.coursesSignal.update(courses => [...courses, createdCourse]);
         this.loadingSignal.set(false);
       },
@@ -99,6 +100,7 @@ export class LearningStore {
     this.errorSignal.set(null);
     this.learningApi.updateCourse(updatedCourse).pipe(retry(2)).subscribe({
       next: course => {
+        course = this.assignCategoryToCourse(course);
         this.coursesSignal.update(courses => courses.map(c => c.id === course.id ? course : c));
         this.loadingSignal.set(false);
       },
