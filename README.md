@@ -1,9 +1,44 @@
-# LearningCenter
+# ACME Learning Center Application (learning-center)
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.2.
+## Overview
+LearningCenter is a modular, domain-driven Angular application for managing learning resources, such as courses and categories. It is designed with the best practices in architecture, maintainability, and scalability in mind.
 
-## Development server
+## Features
+- Category and course management
+- Language switching (English/Spanish) using ngx-translate
+- Error handling and robust navigation
+- Modular bounded contexts (Learning, Shared)
+- Domain-driven design with clear separation of layers
+- Responsive UI and component-based structure
+- Angular Routing for navigation between views
+- HTTP communication using Angular HttpClient
 
+## Technologies
+- Angular CLI 20.3.2
+- Angular Framework
+- Angular Routing
+- Angular HttpClient
+- RxJS
+- Angular Material
+- ngx-translate
+- TypeScript
+- PlantUML (for architecture diagrams)
+- json-server (for local API simulation)
+
+## User Stories
+For a detailed description of the application's functional requirements, please review the [docs/user-stories.md](docs/user-stories.md) file.
+
+## Class Diagram
+The application's architecture and relationships are documented in the [docs/class-diagram.puml](docs/class-diagram.puml) file. Review this diagram for a visual overview of the domain-driven design and package structure.
+
+## Installation
+To install dependencies, run:
+
+```bash
+npm install
+```
+
+## Running
 To start a local development server, run:
 
 ```bash
@@ -12,48 +47,19 @@ ng serve
 
 Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
 
-## Code scaffolding
+## Starting the Fake API (json-server)
+This project uses [json-server](https://github.com/typicode/json-server) to simulate a backend API for development and testing. Configuration files are located in the `/server` folder.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+To start the fake API server, run:
 
 ```bash
-ng generate --help
+npx json-server --watch server/db.json --routes server/routes.json --port 3000
 ```
 
-## Building
-
-To build the project run:
+Or use the provided script:
 
 ```bash
-ng build
+sh server/start.sh
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+The API will be available at `http://localhost:3000/`.
