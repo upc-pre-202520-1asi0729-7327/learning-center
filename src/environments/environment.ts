@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  platformProviderApiBaseUrl: 'http://localhost:3000/api/v1',
+  platformProviderApiBaseUrl: 'https://lc2025201asi07297327.free.beeceptor.com/api/v1',
   platformProviderCategoriesEndpointPath: '/categories',
   platformProviderCoursesEndpointPath: '/courses'
 };
