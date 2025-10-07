@@ -9,6 +9,7 @@ import {MatSelect} from '@angular/material/select';
 import {MatOption} from '@angular/material/core';
 import {MatButton} from '@angular/material/button';
 import {MatInput} from '@angular/material/input';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-course-form',
@@ -20,7 +21,8 @@ import {MatInput} from '@angular/material/input';
     MatSelect,
     MatOption,
     MatButton,
-    MatInput
+    MatInput,
+    TranslatePipe
   ],
   templateUrl: './course-form.html',
   styleUrl: './course-form.css'
