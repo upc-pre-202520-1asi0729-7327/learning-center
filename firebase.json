@@ -1,0 +1,20 @@
+{
+  "hosting": {
+    "site": "lc2025201asi07297327",
+    "public": "dist/learning-center/browser",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ],
+    "frameworksBackend": {
+      "region": "us-central1"
+    }
+  }
+}
