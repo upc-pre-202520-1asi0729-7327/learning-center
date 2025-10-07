@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, computed, inject, ViewChild} from '@angular/core';
 import {LearningStore} from '../../../application/learning.store';
 import {Router} from '@angular/router';
 import {MatError} from '@angular/material/form-field';
@@ -13,9 +13,13 @@ import {
   MatHeaderRowDef,
   MatRow,
   MatRowDef,
-  MatTable
+  MatTable, MatTableDataSource
 } from '@angular/material/table';
-import {MatButton} from '@angular/material/button';
+import {MatButton, MatIconButton} from '@angular/material/button';
+import {MatSort, MatSortHeader} from '@angular/material/sort';
+import {MatPaginator} from '@angular/material/paginator';
+import {TranslatePipe} from '@ngx-translate/core';
+import {MatIcon} from '@angular/material/icon';
 
 @Component({
   selector: 'app-category-list',
@@ -32,7 +36,13 @@ import {MatButton} from '@angular/material/button';
     MatHeaderRow,
     MatHeaderRowDef,
     MatRowDef,
-    MatRow
+    MatRow,
+    MatSortHeader,
+    MatPaginator,
+    MatIconButton,
+    MatSort,
+    TranslatePipe,
+    MatIcon
   ],
   templateUrl: './category-list.html',
   styleUrl: './category-list.css'
@@ -43,11 +53,34 @@ export class CategoryList {
 
   displayedColumns: string[] = ['id', 'name', 'actions'];
 
+  @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+  dataSource = computed(() => {
+    const source = new MatTableDataSource(this.store.categories());
+    source.sort = this.sort;
+    source.paginator = this.paginator;
+    return source;
+  });
+
   editCategory(id: number) {
     this.router.navigate(['learning/categories',id,'edit']).then();
   }
 
   deleteCategory(id: number) {
     this.store.deleteCategory(id);
+  }
+
+  navigateToNew() {
+    this.router.navigate(['learning/categories/new']).then();
+  }
+
+  ngAfterViewChecked() {
+    if (this.dataSource().paginator !== this.paginator) {
+      this.dataSource().paginator = this.paginator;
+    }
+    if (this.dataSource().sort !== this.sort) {
+      this.dataSource().sort = this.sort;
+    }
   }
 }
