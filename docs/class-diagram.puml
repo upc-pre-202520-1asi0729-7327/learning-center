@@ -1,0 +1,255 @@
+@startuml Class Diagram
+
+package "Shared" {
+  package "domain.model" {
+    interface BaseEntity <<entity>> {
+      + id: number
+    }
+  }
+
+  package "infrastructure" {
+    class BaseApiEndpoint <<resource>> {
+      - http: HttpClient
+      - endpointUrl: string
+      - assembler: TAssembler
+      + getAll(): Observable<TEntity[]>
+      + getById(id: number): Observable<TEntity>
+      + create(entity: TEntity): Observable<TEntity>
+      + update(id: number, entity: TEntity): Observable<TEntity>
+      + delete(id: number): Observable<void>
+    }
+
+    class BaseApi <<service>> {
+    }
+
+    interface BaseAssembler <<assembler>> {
+      + toEntityFromResource(resource: TResource): TEntity
+      + toEntitiesFromResponse(response: TResponse): TEntity[]
+      + toResourceFromEntity(entity: TEntity): TResource
+      + toResponseFromEntities(entities: TEntity[]): TResponse
+    }
+
+    interface BaseResource <<resource>> {
+      + id: number
+    }
+
+    interface BaseResponse <<resource>> {
+    }
+  }
+
+  package "presentation" {
+    package "components" {
+      class FooterContent <<component>> {
+      }
+
+      class LanguageSwitcher <<component>> {
+        - currentLang: string
+        - languages: string[]
+        - translate: TranslateService
+        + useLanguage(language: string): void
+      }
+
+      class Layout <<component>> {
+      }
+    }
+
+    package "views" {
+      class About <<component>> {
+      }
+
+      class Home <<component>> {
+      }
+
+      class PageNotFound <<component>> {
+      }
+    }
+  }
+}
+
+package "Learning" {
+  package "application" {
+    class LearningStore <<store>> {
+      - categoriesSignal: Signal<Category[]>
+      - coursesSignal: Signal<Course[]>
+      - errorSignal: Signal<string | null>
+      - loadingSignal: Signal<boolean>
+      + categories: Signal<Category[]>
+      + courses: Signal<Course[]>
+      + error: Signal<string | null>
+      + loading: Signal<boolean>
+      + categoriesCount: Signal<number>
+      + coursesCount: Signal<number>
+      + getCategoryById(id: number): Signal<Category | undefined>
+      + addCategory(category: Category): void
+      + updateCategory(updatedCategory: Category): void
+      + deleteCategory(id: number): void
+      + loadCategories(): void
+      + loadCourses(): void
+    }
+  }
+
+  package "domain.model" {
+    class Category <<entity>> {
+      - _id: number
+      - _name: string
+      + get id(): number
+      + set id(value: number)
+      + get name(): string
+      + set name(value: string)
+    }
+
+    class Course <<entity>> {
+      - _id: number
+      - _title: string
+      - _description: string
+      - _categoryId: number
+      - _category: Category | null
+      + get id(): number
+      + set id(value: number)
+      + get title(): string
+      + set title(value: string)
+      + get description(): string
+      + set description(value: string)
+      + get categoryId(): number
+      + set categoryId(value: number)
+      + get category(): Category | null
+      + set category(value: Category | null)
+    }
+  }
+
+  package "infrastructure" {
+    class CategoriesApiEndpoint <<resource>> {
+    }
+
+    interface CategoriesResponse <<resource>> {
+      + categories: CategoryResource[]
+    }
+
+    interface CategoryResource <<resource>> {
+      + id: number
+      + name: string
+    }
+
+    class CategoryAssembler <<assembler>> {
+      + toEntitiesFromResponse(response: CategoriesResponse): Category[]
+      + toEntityFromResource(resource: CategoryResource): Category
+      + toResourceFromEntity(entity: Category): CategoryResource
+    }
+
+    interface CourseResource <<resource>> {
+      + id: number
+      + title: string
+      + description: string
+      + categoryId: number
+    }
+
+    class CourseAssembler <<assembler>> {
+      + toEntitiesFromResponse(response: CoursesResponse): Course[]
+      + toEntityFromResource(resource: CourseResource): Course
+      + toResourceFromEntity(entity: Course): CourseResource
+    }
+
+    class CoursesApiEndpoint <<resource>> {
+    }
+
+    interface CoursesResponse <<resource>> {
+      + courses: CourseResource[]
+    }
+
+    class LearningApi <<service>> {
+      + createCategory(category: Category): Observable<Category>
+      + updateCategory(category: Category): Observable<Category>
+      + deleteCategory(id: number): Observable<void>
+      + getCategories(): Observable<Category[]>
+      + getCategoryById(id: number): Observable<Category>
+      + createCourse(course: Course): Observable<Course>
+      + updateCourse(course: Course): Observable<Course>
+      + deleteCourse(id: number): Observable<void>
+      + getCourses(): Observable<Course[]>
+      + getCourseById(id: number): Observable<Course>
+    }
+  }
+
+  package "presentation" {
+    package "views" {
+      class CategoryForm <<component>> {
+        - fb: FormBuilder
+        - route: ActivatedRoute
+        - router: Router
+        - store: LearningStore
+        - form: FormGroup
+        - isEdit: boolean
+        - categoryId: number | null
+        + submit(): void
+      }
+
+      class CategoryList <<component>> {
+        - store: LearningStore
+        - router: Router
+        - displayedColumns: string[]
+        + editCategory(id: number): void
+        + deleteCategory(id: number): void
+      }
+
+      class CourseForm <<component>> {
+        - fb: FormBuilder
+        - route: ActivatedRoute
+        - router: Router
+        - store: LearningStore
+        - form: FormGroup
+        - isEdit: boolean
+        - courseId: number | null
+        + submit(): void
+      }
+
+      class CourseList <<component>> {
+        - store: LearningStore
+        - router: Router
+        - displayedColumns: string[]
+        + editCourse(id: number): void
+        + deleteCourse(id: number): void
+      }
+    }
+  }
+}
+
+' Inheritance relationships
+Shared.domain.model.BaseEntity <|.. Learning.domain.model.Category
+Shared.domain.model.BaseEntity <|.. Learning.domain.model.Course
+
+Shared.infrastructure.BaseApiEndpoint <|-- Learning.infrastructure.CategoriesApiEndpoint
+Shared.infrastructure.BaseApiEndpoint <|-- Learning.infrastructure.CoursesApiEndpoint
+
+Shared.infrastructure.BaseApi <|-- Learning.infrastructure.LearningApi
+
+Shared.infrastructure.BaseAssembler <|-- Learning.infrastructure.CategoryAssembler
+Shared.infrastructure.BaseAssembler <|-- Learning.infrastructure.CourseAssembler
+
+Shared.infrastructure.BaseResource <|.. Learning.infrastructure.CategoryResource
+Shared.infrastructure.BaseResource <|.. Learning.infrastructure.CourseResource
+
+Shared.infrastructure.BaseResponse <|.. Learning.infrastructure.CategoriesResponse
+Shared.infrastructure.BaseResponse <|.. Learning.infrastructure.CoursesResponse
+
+' Associations
+Learning.infrastructure.CategoryAssembler ..> Learning.domain.model.Category : converts to/from
+Learning.infrastructure.CategoryAssembler ..> Learning.infrastructure.CategoriesResponse : converts to/from
+
+Learning.infrastructure.CourseAssembler ..> Learning.domain.model.Course : converts to/from
+Learning.infrastructure.CourseAssembler ..> Learning.infrastructure.CoursesResponse : converts to/from
+
+Learning.infrastructure.CategoriesApiEndpoint ..> Learning.infrastructure.CategoryAssembler : uses
+Learning.infrastructure.CoursesApiEndpoint ..> Learning.infrastructure.CourseAssembler : uses
+
+Learning.infrastructure.LearningApi ..> Learning.infrastructure.CategoriesApiEndpoint : manages
+Learning.infrastructure.LearningApi ..> Learning.infrastructure.CoursesApiEndpoint : manages
+
+Learning.application.LearningStore ..> Learning.infrastructure.LearningApi : uses
+
+Learning.domain.model.Course --> Learning.domain.model.Category : belongs to
+
+Learning.presentation.views.CategoryForm ..> Learning.application.LearningStore : uses
+Learning.presentation.views.CategoryList ..> Learning.application.LearningStore : uses
+Learning.presentation.views.CourseForm ..> Learning.application.LearningStore : uses
+Learning.presentation.views.CourseList ..> Learning.application.LearningStore : uses
+@enduml
