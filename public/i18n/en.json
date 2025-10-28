@@ -22,5 +22,51 @@
     "rights": "All rights reserved.",
     "powered-by": "Powered by",
     "and": "and"
+  },
+  "categories": {
+    "list-title": "Categories",
+    "id": "ID",
+    "name": "Name",
+    "actions": "Actions",
+    "new": "New Category",
+    "edit": "Edit",
+    "delete": "Delete"
+  },
+  "category": {
+    "new-title": "Create New Category",
+    "edit-title": "Edit Category",
+    "name": "Name",
+    "create": "Create Category",
+    "update": "Update Category",
+    "cancel": "Cancel",
+    "error": {
+      "name-required": "Name is required"
+    }
+  },
+  "courses": {
+    "list-title": "Courses",
+    "id": "ID",
+    "title": "Title",
+    "description": "Description",
+    "category": "Category",
+    "actions": "Actions",
+    "new": "New Course",
+    "edit": "Edit",
+    "delete": "Delete"
+  },
+  "course": {
+    "new-title": "Create New Course",
+    "edit-title": "Edit Course",
+    "title": "Title",
+    "description": "Description",
+    "category": "Category",
+    "create": "Create Course",
+    "update": "Update Course",
+    "cancel": "Cancel",
+    "error": {
+      "title-required": "Title is required",
+      "description-required": "Description is required",
+      "category-required": "Category is required"
+    }
   }
 }

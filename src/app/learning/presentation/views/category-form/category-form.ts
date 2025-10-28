@@ -6,6 +6,7 @@ import {Category} from '../../../domain/model/category.entity';
 import {MatError, MatFormField, MatLabel} from '@angular/material/form-field';
 import {MatButton} from '@angular/material/button';
 import {MatInput} from '@angular/material/input';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-category-form',
@@ -15,7 +16,8 @@ import {MatInput} from '@angular/material/input';
     MatLabel,
     MatError,
     MatButton,
-    MatInput
+    MatInput,
+    TranslatePipe
   ],
   templateUrl: './category-form.html',
   styleUrl: './category-form.css'
@@ -37,8 +39,9 @@ export class CategoryForm {
     this.route.params.subscribe(params  => {
       this.categoryId = params['id'] ? +params['id'] : null;
       this.isEdit = !!this.categoryId;
-      if (this.isEdit) {
-        const category = this.store.getCategoryById(this.categoryId)();
+      if (this.isEdit && this.categoryId) {
+        let id = this.categoryId;
+        const category = this.store.getCategoryById(id)();
         console.log(category);
         if (category) this.form.patchValue({name: category.name});
       }
