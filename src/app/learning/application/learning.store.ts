@@ -21,8 +21,8 @@ export class LearningStore {
   readonly courses = this.coursesSignal.asReadonly();
   readonly error = this.errorSignal.asReadonly();
   // Computed signals
-  readonly categoriesCount = computed(() => this.categories.length);
-  readonly coursesCount = computed(() => this.courses.length);
+  readonly categoriesCount = computed(() => this.categories().length);
+  readonly coursesCount = computed(() => this.courses().length);
   readonly loading = this.loadingSignal.asReadonly();
 
   /**
