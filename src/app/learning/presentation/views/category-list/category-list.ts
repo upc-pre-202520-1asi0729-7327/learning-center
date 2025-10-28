@@ -21,6 +21,10 @@ import {MatPaginator} from '@angular/material/paginator';
 import {TranslatePipe} from '@ngx-translate/core';
 import {MatIcon} from '@angular/material/icon';
 
+/**
+ * Component for displaying a list of categories with options to edit or delete them.
+ * Uses Angular Material table for presentation.
+ */
 @Component({
   selector: 'app-category-list',
   imports: [
@@ -63,18 +67,32 @@ export class CategoryList {
     return source;
   });
 
+  /**
+   * Navigates to the edit page for a specific category.
+   * @param id - The ID of the category to edit.
+   */
   editCategory(id: number) {
     this.router.navigate(['learning/categories',id,'edit']).then();
   }
 
+  /**
+   * Deletes a category by ID.
+   * @param id - The ID of the category to delete.
+   */
   deleteCategory(id: number) {
     this.store.deleteCategory(id);
   }
 
+  /**
+   * Navigates to the new category creation page.
+   */
   navigateToNew() {
     this.router.navigate(['learning/categories/new']).then();
   }
 
+  /**
+   * Lifecycle hook to ensure paginator and sort are properly assigned after view checks.
+   */
   ngAfterViewChecked() {
     if (this.dataSource().paginator !== this.paginator) {
       this.dataSource().paginator = this.paginator;
