@@ -5,6 +5,10 @@ const categoryForm = () => import('./views/category-form/category-form').then(m 
 const courseList = () => import('./views/course-list/course-list').then(m => m.CourseList);
 const courseForm = () => import('./views/course-form/course-form').then(m => m.CourseForm);
 
+/**
+ * Routes for the learning module.
+ * Defines paths for category and course management, including list and form views.
+ */
 export const learningRoutes: Routes = [
   { path: 'categories',           loadComponent: categoryList},
   { path: 'categories/new',       loadComponent: categoryForm},
@@ -13,4 +17,3 @@ export const learningRoutes: Routes = [
   { path: 'courses/new',          loadComponent: courseForm},
   { path: 'courses/:id/edit',     loadComponent: courseForm}
 ];
-

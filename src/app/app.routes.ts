@@ -6,6 +6,11 @@ const pageNotFound = () => import('./shared/presentation/views/page-not-found/pa
 const learningRoutes = () => import('./learning/presentation/learning.routes').then(m => m.learningRoutes);
 
 const baseTitle = 'ACME Learning Center';
+
+/**
+ * Application routes configuration.
+ * Defines the routing structure for the Angular application, including lazy-loaded components and child routes.
+ */
 export const routes: Routes = [
   { path: 'home',     component:      Home,                     title: `Home - ${baseTitle}` },
   { path: 'about',    loadComponent:  about,                    title: `About - ${baseTitle}` },

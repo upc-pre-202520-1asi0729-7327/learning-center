@@ -1,6 +1,10 @@
 import {TestBed} from '@angular/core/testing';
 import {App} from './app';
 
+/**
+ * Test suite for the App component.
+ * Verifies the component creation and rendering.
+ */
 describe('App', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -8,12 +12,18 @@ describe('App', () => {
     }).compileComponents();
   });
 
+  /**
+   * Test that the app component is created successfully.
+   */
   it('should create the app', () => {
     const fixture = TestBed.createComponent(App);
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
   });
 
+  /**
+   * Test that the title is rendered correctly.
+   */
   it('should render title', () => {
     const fixture = TestBed.createComponent(App);
     fixture.detectChanges();

@@ -6,6 +6,10 @@ import {provideHttpClient, withFetch} from '@angular/common/http';
 import {provideTranslateService} from '@ngx-translate/core';
 import {provideTranslateHttpLoader} from '@ngx-translate/http-loader';
 
+/**
+ * Application configuration for Angular.
+ * Includes providers for routing, HTTP client, translation, and error handling.
+ */
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),

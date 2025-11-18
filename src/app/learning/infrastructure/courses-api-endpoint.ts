@@ -7,7 +7,15 @@ import {HttpClient} from '@angular/common/http';
 
 const coursesApiEndpointUrl = `${environment.platformProviderApiBaseUrl}${environment.platformProviderCoursesEndpointPath}`;
 
+/**
+ * API endpoint for handling course-related operations.
+ * Extends BaseApiEndpoint to provide CRUD operations for courses.
+ */
 export class CoursesApiEndpoint extends BaseApiEndpoint<Course, CourseResource, CoursesResponse, CourseAssembler>{
+  /**
+   * Creates an instance of CoursesApiEndpoint.
+   * @param http The HttpClient for making HTTP requests.
+   */
   constructor(http: HttpClient) {
     super( http, coursesApiEndpointUrl, new CourseAssembler());
   };

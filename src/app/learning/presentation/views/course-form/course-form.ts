@@ -11,6 +11,10 @@ import {MatButton} from '@angular/material/button';
 import {MatInput} from '@angular/material/input';
 import {TranslatePipe} from '@ngx-translate/core';
 
+/**
+ * Component for creating and editing courses.
+ * Provides a form to input course details including title, description, and category.
+ */
 @Component({
   selector: 'app-course-form',
   imports: [
@@ -42,6 +46,10 @@ export class CourseForm {
   isEdit = false;
   courseId: number | null = null;
 
+  /**
+   * Creates an instance of CourseForm.
+   * Subscribes to route params to determine if editing an existing course.
+   */
   constructor() {
     this.route.params.subscribe(params => {
       this.courseId = params['id'] ? +params['id'] : null;
@@ -60,6 +68,10 @@ export class CourseForm {
     });
   }
 
+  /**
+   * Submits the form to create or update a course.
+   * Navigates back to the courses list after submission.
+   */
   submit() {
     if (this.form.invalid) return;
     let id = this.form.value.categoryId ?? 0;

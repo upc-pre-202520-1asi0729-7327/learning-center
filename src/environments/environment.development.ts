@@ -1,3 +1,7 @@
+/**
+ * Environment configuration for development.
+ * Contains API endpoints and settings for local development of the learning center application.
+ */
 export const environment = {
   production: false,
   platformProviderApiBaseUrl: 'http://localhost:8080/api/v1',

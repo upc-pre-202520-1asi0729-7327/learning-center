@@ -11,21 +11,40 @@ import {SignUpResource} from './sign-up-response';
 import {SignInCommand} from '../domain/model/sign-in.command';
 import {SignInResource} from './sign-in-response';
 
+/**
+ * API service for Identity and Access Management (IAM) operations.
+ * Handles user sign-up and sign-in through dedicated endpoints.
+ */
 @Injectable({providedIn: 'root'})
 export class IamApi extends BaseApi {
   private readonly signUpEndpoint: SignUpApiEndpoint;
   private readonly signInEndpoint: SignInApiEndpoint;
 
+  /**
+   * Creates an instance of IamApi.
+   * Initializes the sign-up and sign-in endpoints with their respective assemblers.
+   * @param http The HttpClient for making HTTP requests.
+   */
   constructor(http: HttpClient) {
     super();
     this.signUpEndpoint = new SignUpApiEndpoint(http, new SignUpAssembler());
     this.signInEndpoint = new SignInApiEndpoint(http, new SignInAssembler());
   }
 
+  /**
+   * Signs up a new user.
+   * @param signUpCommand The sign-up command containing user details.
+   * @returns An Observable of the sign-up response.
+   */
   signUp(signUpCommand: SignUpCommand): Observable<SignUpResource>  {
     return this.signUpEndpoint.signUp(signUpCommand);
   }
 
+  /**
+   * Signs in an existing user.
+   * @param signInCommand The sign-in command containing credentials.
+   * @returns An Observable of the sign-in response.
+   */
   signIn(signInCommand: SignInCommand): Observable<SignInResource> {
     return this.signInEndpoint.signIn(signInCommand);
   }

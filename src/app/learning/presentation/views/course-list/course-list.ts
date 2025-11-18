@@ -22,6 +22,10 @@ import {TranslatePipe} from '@ngx-translate/core';
 import {MatSort, MatSortHeader} from '@angular/material/sort';
 import {MatIcon} from '@angular/material/icon';
 
+/**
+ * Component for displaying a list of courses with options to edit or delete them.
+ * Uses Angular Material table for presentation.
+ */
 @Component({
   selector: 'app-course-list',
   imports: [
@@ -64,18 +68,32 @@ export class CourseList {
     return source;
   });
 
+  /**
+   * Navigates to the edit page for a specific course.
+   * @param id - The ID of the course to edit.
+   */
   editCourse(id: number) {
     this.router.navigate(['learning/courses', id, 'edit']).then();
   }
 
+  /**
+   * Deletes a course by ID.
+   * @param id - The ID of the course to delete.
+   */
   deleteCourse(id: number) {
     this.store.deleteCourse(id);
   }
 
+  /**
+   * Navigates to the new course creation page.
+   */
   navigateToNew() {
     this.router.navigate(['learning/courses/new']).then();
   }
 
+  /**
+   * Lifecycle hook to ensure paginator and sort are properly assigned after view checks.
+   */
   ngAfterViewChecked() {
     if (this.dataSource().paginator !== this.paginator) {
       this.dataSource().paginator = this.paginator;

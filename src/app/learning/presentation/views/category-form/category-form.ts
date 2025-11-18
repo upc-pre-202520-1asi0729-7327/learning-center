@@ -8,6 +8,10 @@ import {MatButton} from '@angular/material/button';
 import {MatInput} from '@angular/material/input';
 import {TranslatePipe} from '@ngx-translate/core';
 
+/**
+ * Component for creating and editing categories.
+ * Provides a form to input category details and handles submission.
+ */
 @Component({
   selector: 'app-category-form',
   imports: [
@@ -35,6 +39,10 @@ export class CategoryForm {
   isEdit = false;
   categoryId: number | null = null;
 
+  /**
+   * Creates an instance of CategoryForm.
+   * Subscribes to route params to determine if editing an existing category.
+   */
   constructor() {
     this.route.params.subscribe(params  => {
       this.categoryId = params['id'] ? +params['id'] : null;
@@ -48,6 +56,10 @@ export class CategoryForm {
     });
   }
 
+  /**
+   * Submits the form to create or update a category.
+   * Navigates back to the categories list after submission.
+   */
   submit() {
     if (this.form.invalid) return;
     const category: Category = new Category({

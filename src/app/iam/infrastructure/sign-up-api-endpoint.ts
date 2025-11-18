@@ -8,11 +8,25 @@ import {SignUpCommand} from '../domain/model/sign-up.command';
 
 const signUpApiEndpointUrl = `${environment.platformProviderApiBaseUrl}/${environment.platformProviderSignUpEndpointPath}`;
 
+/**
+ * API endpoint for handling user sign-up operations.
+ * Extends ErrorHandlingEnabledBaseType for error management.
+ */
 export class SignUpApiEndpoint extends ErrorHandlingEnabledBaseType {
+  /**
+   * Creates an instance of SignUpApiEndpoint.
+   * @param http The HttpClient for making HTTP requests.
+   * @param assembler The assembler for converting between commands, requests, and responses.
+   */
   constructor(private http: HttpClient, private assembler: SignUpAssembler) {
     super();
   }
 
+  /**
+   * Performs the sign-up operation by sending a POST request.
+   * @param signUpCommand The sign-up command containing user details.
+   * @returns An Observable of the sign-up resource.
+   */
   signUp(signUpCommand: SignUpCommand): Observable<SignUpResource> {
     const signUpRequest = this.assembler.toRequestFromCommand(signUpCommand);
     return this.http.post<SignUpResponse>(signUpApiEndpointUrl, signUpRequest).pipe(

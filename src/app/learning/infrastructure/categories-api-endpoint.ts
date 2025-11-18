@@ -6,7 +6,16 @@ import {HttpClient} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
 
 const categoriesEndpointUrl = `${environment.platformProviderApiBaseUrl}${environment.platformProviderCategoriesEndpointPath}`;
+
+/**
+ * API endpoint for handling category-related operations.
+ * Extends BaseApiEndpoint to provide CRUD operations for categories.
+ */
 export class CategoriesApiEndpoint extends BaseApiEndpoint<Category, CategoryResource, CategoriesResponse, CategoryAssembler> {
+  /**
+   * Creates an instance of CategoriesApiEndpoint.
+   * @param http The HttpClient for making HTTP requests.
+   */
   constructor(http: HttpClient) {
     super(http, categoriesEndpointUrl, new CategoryAssembler());
   }

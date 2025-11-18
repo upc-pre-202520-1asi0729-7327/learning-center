@@ -6,6 +6,10 @@ import {TranslatePipe} from '@ngx-translate/core';
 import {LanguageSwitcher} from '../language-switcher/language-switcher';
 import {FooterContent} from '../footer-content/footer-content';
 
+/**
+ * Main layout component for the application.
+ * Provides the toolbar with navigation options, language switcher, and footer.
+ */
 @Component({
   selector: 'app-layout',
   imports: [
