@@ -24,7 +24,7 @@ export class LanguageSwitcher {
 
   /**
    * Creates an instance of LanguageSwitcher.
-   * Initializes the translate service and sets the current language.
+   * Initializes the translation service and sets the current language.
    */
   constructor() {
     this.translate = inject(TranslateService);

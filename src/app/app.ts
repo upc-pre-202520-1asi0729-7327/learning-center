@@ -18,7 +18,7 @@ export class App {
 
   /**
    * Creates an instance of App.
-   * Initializes the translate service with supported languages and sets the default language to English.
+   * Initializes the translation service with supported languages and sets the default language to English.
    */
   constructor() {
     this.translate = inject(TranslateService);
