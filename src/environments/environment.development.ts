@@ -1,6 +1,8 @@
 export const environment = {
   production: false,
-  platformProviderApiBaseUrl: 'http://localhost:3000/api/v1',
+  platformProviderApiBaseUrl: 'http://localhost:8080/api/v1',
   platformProviderCategoriesEndpointPath: '/categories',
-  platformProviderCoursesEndpointPath: '/courses'
+  platformProviderCoursesEndpointPath: '/courses',
+  platformProviderSignInEndpointPath: '/authentication/sign-in',
+  platformProviderSignUpEndpointPath: '/authentication/sign-up',
 };
