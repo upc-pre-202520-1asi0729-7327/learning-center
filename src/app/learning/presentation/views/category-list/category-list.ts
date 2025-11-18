@@ -13,7 +13,8 @@ import {
   MatHeaderRowDef,
   MatRow,
   MatRowDef,
-  MatTable, MatTableDataSource
+  MatTable,
+  MatTableDataSource
 } from '@angular/material/table';
 import {MatButton, MatIconButton} from '@angular/material/button';
 import {MatSort, MatSortHeader} from '@angular/material/sort';
