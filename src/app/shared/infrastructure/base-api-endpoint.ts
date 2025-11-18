@@ -1,8 +1,9 @@
 import {BaseEntity} from '../domain/model/base-entity';
 import {BaseResource, BaseResponse} from './base-response';
 import {BaseAssembler} from './base-assembler';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {catchError, map, Observable, throwError} from 'rxjs';
+import {HttpClient} from '@angular/common/http';
+import {catchError, map, Observable} from 'rxjs';
+import {ErrorHandlingEnabledBaseType} from './error-handling-enabled-base-type';
 
 /**
  * A generic base class for API endpoints providing standard CRUD operations.
@@ -17,18 +18,18 @@ export abstract class BaseApiEndpoint<
   TResource extends BaseResource,
   TResponse extends BaseResponse,
   TAssembler extends BaseAssembler<TEntity, TResource, TResponse>
-> {
+> extends ErrorHandlingEnabledBaseType {
   /**
    * Creates an instance of BaseApiEndpoint.
    * @param http - The HttpClient for making HTTP requests.
    * @param endpointUrl - The base URL for the API endpoint.
    * @param assembler - The assembler for converting between entities and resources.
    */
-  constructor(
+  protected constructor(
     protected http: HttpClient,
     protected endpointUrl: string,
     protected assembler: TAssembler
-  ) {}
+  ) { super();}
 
   /**
    * Fetches all entities from the API.
@@ -97,23 +98,4 @@ export abstract class BaseApiEndpoint<
     );
   }
 
-  /**
-   * Handles HTTP errors and returns an Observable that emits an error message.
-   * @param operation - The name of the operation that failed.
-   * @returns A function that takes an HttpErrorResponse and returns an Observable that emits an error message.
-   * @protected
-   */
-  protected handleError(operation: string) {
-    return (error: HttpErrorResponse): Observable<never> => {
-      let errorMessage = operation;
-      if (error.status === 404) {
-        errorMessage = `${operation}: Resource not found`;
-      } else if (error.error instanceof ErrorEvent) {
-        errorMessage = `${operation}: ${error.error.message }`;
-      } else {
-        errorMessage = `${operation}: ${error.statusText || 'Unexpected error'}`;
-      }
-      return throwError(() => new Error(errorMessage));
-    }
-  }
 }
