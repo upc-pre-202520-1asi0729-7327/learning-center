@@ -21,6 +21,9 @@ export class IamStore {
   readonly isLoadingUsers = this.loadingUsers.asReadonly();
 
   constructor(private iamApi: IamApi) {
+    this.isSignedInSignal.set(false);
+    this.currentUsernameSignal.set(null);
+    this.currentUserIdSignal.set(null);
   }
 
   signIn(signInCommand: SignInCommand, router: Router) {
@@ -51,6 +54,9 @@ export class IamStore {
       },
       error: (err) => {
         console.error('Sign-up failed:', err);
+        this.isSignedInSignal.set(false);
+        this.currentUsernameSignal.set(null);
+        this.currentUserIdSignal.set(null);
         router.navigate(['/iam/sign-up']).then();
       }
     });

@@ -6,7 +6,7 @@ import {catchError, map, Observable} from 'rxjs';
 import {SignInResource, SignInResponse} from './sign-in-response';
 import {ErrorHandlingEnabledBaseType} from '../../shared/infrastructure/error-handling-enabled-base-type';
 
-const signInApiEndpointUrl = `${environment.platformProviderApiBaseUrl}/${environment.platformProviderSignInEndpointPath}`;
+const signInApiEndpointUrl = `${environment.platformProviderApiBaseUrl}${environment.platformProviderSignInEndpointPath}`;
 
 /**
  * API endpoint for handling user sign-in operations.

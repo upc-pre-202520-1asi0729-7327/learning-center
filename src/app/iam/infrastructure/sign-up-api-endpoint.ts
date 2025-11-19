@@ -6,7 +6,7 @@ import {SignUpAssembler} from './sign-up-assembler';
 import {SignUpResource, SignUpResponse} from './sign-up-response';
 import {SignUpCommand} from '../domain/model/sign-up.command';
 
-const signUpApiEndpointUrl = `${environment.platformProviderApiBaseUrl}/${environment.platformProviderSignUpEndpointPath}`;
+const signUpApiEndpointUrl = `${environment.platformProviderApiBaseUrl}${environment.platformProviderSignUpEndpointPath}`;
 
 /**
  * API endpoint for handling user sign-up operations.
