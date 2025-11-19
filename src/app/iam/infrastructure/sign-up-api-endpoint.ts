@@ -31,7 +31,7 @@ export class SignUpApiEndpoint extends ErrorHandlingEnabledBaseType {
     const signUpRequest = this.assembler.toRequestFromCommand(signUpCommand);
     return this.http.post<SignUpResponse>(signUpApiEndpointUrl, signUpRequest).pipe(
       map(response => this.assembler.toResourceFromResponse(response)),
-      catchError(this.handleError('Failed to sign-in'))
+      catchError(this.handleError('Failed to sign-up'))
     );
   }
 
