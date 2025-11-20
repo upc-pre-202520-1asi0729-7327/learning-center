@@ -14,9 +14,7 @@ import {MatButton} from '@angular/material/button';
 })
 export class AuthenticationSection {
   private router = inject(Router);
-  private store = inject(IamStore);
-  protected isSignedIn = !!this.store.isSignedIn;
-  protected currentUsername = this.store.currentUsername;
+  protected store = inject(IamStore);
 
 
   performSignIn(){
